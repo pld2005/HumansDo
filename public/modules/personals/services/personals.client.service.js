@@ -48,16 +48,7 @@ angular.module('personals').factory('Personals', ['$resource',
 
           // open modal and return the instance (which will resolve the promise on ok/cancel clicks)
           var modalInstance = $modal.open({
-              template: '<div class="dialog-modal"> \
-                  <div class="modal-header" ng-show="modalTitle"> \
-                      <h3 class="modal-title">{{modalTitle}}</h3> \
-                  </div> \
-                  <div class="modal-body">{{modalBody}}</div> \
-                  <div class="modal-footer"> \
-                      <button class="btn btn-primary" ng-click="ok()" ng-show="okButton">{{okButton}}</button> \
-                      <button class="btn btn-warning" ng-click="cancel()" ng-show="cancelButton">{{cancelButton}}</button> \
-                  </div> \
-              </div>',
+              template: '<div class="dialog-modal"><div class="modal-header" ng-show="modalTitle"><h3 class="modal-title">{{modalTitle}}</h3></div><div class="modal-body">{{modalBody}}</div><div class="modal-footer"<button class="btn btn-primary" ng-click="ok()" ng-show="okButton">{{okButton}}</button><button class="btn btn-warning" ng-click="cancel()" ng-show="cancelButton">{{cancelButton}}</button></div></div>',
               controller: ModalInstanceCtrl,
               resolve: {
                   settings: function() {
@@ -72,5 +63,5 @@ angular.module('personals').factory('Personals', ['$resource',
           });
           // return the modal instance
           return modalInstance;
-      }
-  }])
+      };
+  }]);
