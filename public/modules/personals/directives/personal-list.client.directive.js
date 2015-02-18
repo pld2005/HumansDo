@@ -29,7 +29,7 @@ angular.module('personals').directive('confirmClick', ['$q', 'dialogModal', func
                   return false;
               };
           }
-      };
+      }
   }]);
 
 

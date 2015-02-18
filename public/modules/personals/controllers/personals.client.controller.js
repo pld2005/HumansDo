@@ -60,9 +60,7 @@ angular.module('personals').controller('PersonalsController', ['$scope', '$state
 		$scope.find = function() {
 			$scope.personals = Personals.query();
 			$scope.displayCollection = [].concat($scope.personals);
-			//paginacion
-			$scope.itemsByPage=25;
- 			//$scope.authentication.user.firstName;
+			$scope.itemsByPage=3;
 		};
 
 		// Find existing Personal
