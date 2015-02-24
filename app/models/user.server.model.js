@@ -29,35 +29,40 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+		validate: [validateLocalStrategyProperty, 'Ingrese el nombre']
 	},
 	lastName: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+		validate: [validateLocalStrategyProperty, 'Ingrese el apellido']
 	},
 	displayName: {
 		type: String,
 		trim: true
 	},
+	empresa: {
+		type: Schema.ObjectId,
+		ref: 'Empresa',
+		required: 'Ingrese la empresa'
+	},
 	email: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
-		match: [/.+\@.+\..+/, 'Please fill a valid email address']
+		validate: [validateLocalStrategyProperty, 'Ingrese el email del usuario'],
+		match: [/.+\@.+\..+/, 'Ingrese una dirección de email válida']
 	},
 	username: {
 		type: String,
-		unique: 'testing error message',
-		required: 'Please fill in a username',
+		unique: 'El nombre de usuario ya existe',
+		required: 'Ingrese el nombre de usuario',
 		trim: true
 	},
 	password: {
 		type: String,
 		default: '',
-		validate: [validateLocalStrategyPassword, 'Password should be longer']
+		validate: [validateLocalStrategyPassword, 'La contraseña debe contener más de 6 caracteres']
 	},
 	salt: {
 		type: String
@@ -71,9 +76,10 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin']
+			enum: ['user', 'admin', 'superadmin']
 		}],
-		default: ['user']
+		required: 'Ingrese el Rol del usuario',
+		default: ['user'],
 	},
 	updated: {
 		type: Date

@@ -1,0 +1,61 @@
+<section data-ng-controller="UsersController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Usuarios</h1>
+    </div>
+
+    <div>
+
+        <table st-table="displayCollection" st-safe-src="users" class="table table-striped">
+            <thead>
+            <tr>
+                <th colspan="4">
+                    <input st-search="" class="form-control" placeholder="buscar ..." type="text"/>
+                </th>
+                <th colspan="2">
+                    <a href="/#!/signup" class="btn btn-sm btn-success">
+                        <i class="glyphicon glyphicon-plus">
+                        </i> Agregar Usuario
+                    </button>
+                </th>
+            </tr>
+            <tr>
+                <th st-sort="empresa" st-skip-natural="true">Empresa</th>
+                <th st-sort="firstName" st-skip-natural="true">Nombre</th>
+                <th st-sort="username" st-skip-natural="true">Username</th>
+                <th st-sort="email">Email</th>
+                <th st-sort="roles">Rol</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in displayCollection">
+                <td>{{row.empresa.nombre}} </td>
+                <td>{{row.firstName}} {{row.lastName}} </td>
+                <td>{{row.username}}</td>
+                <td>{{row.email}}</td>
+                <td>{{row.roles[0]}}</td>
+                <td>
+                <a href="/#!/managmentusers/{{row._id}}/edit" class="btn btn-sm btn-success">
+                    <i class="glyphicon glyphicon-edit">
+                    </i>
+                </a>
+                <button type="button" ng-click="confirmClick() && remove(row)" confirm-click="Está seguro que desea eliminar el registro?" confirm-click class="btn btn-sm btn-danger">
+                    <i class="glyphicon glyphicon-trash">
+                    </i>
+                </button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!users.$resolved || users.length">
+    	No Users yet, why don't you <a href="/#!/users/create">create one</a>?
+    </div>
+</section>

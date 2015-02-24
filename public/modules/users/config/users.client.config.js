@@ -1,5 +1,14 @@
 'use strict';
+// Configuring the Articles module
 
+
+angular.module('users').run(['Menus',
+	function(Menus) {
+		// Set top bar menu items
+		Menus.addMenuItem('topbar', 'Usuarios', 'managmentusers', 'dropdown','managmentusers',true,['admin']);
+		Menus.addSubMenuItem('topbar', 'managmentusers', 'Listado', 'managmentusers');
+	}
+]);
 // Config HTTP Error Handling
 angular.module('users').config(['$httpProvider',
 	function($httpProvider) {

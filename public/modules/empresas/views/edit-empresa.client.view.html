@@ -1,0 +1,59 @@
+<section data-ng-controller="EmpresasController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Empresa</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="nombre">Nombre</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="empresa.nombre" id="nombre" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <label class="control-label" for="cuit">CUIT</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="empresa.cuit" id="cuit" class="form-control" placeholder="CUIT" required>
+                    </div>
+                    <label class="control-label" for="domicilio">Domicilio</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="empresa.domicilio" id="domicilio" class="form-control" placeholder="Domicilio" >
+                    </div>
+                    <label class="control-label" for="email">Email</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="empresa.email" id="email" class="form-control" placeholder="Email" >
+                    </div>
+                    <label class="control-label" for="activo">Vigencia</label>
+                    <div class="controls">
+
+
+                        <div class="col-md-6">
+                            <p class="input-group">
+                              <input type="text" class="form-control" datepicker-popup="dd-MM-yyyy" data-ng-model="empresa.vigencia" is-open="opened" min-date="minDate" max-date="'2099-12-31'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                            </p>
+                        </div>                    
+
+                  
+                        
+                    </div>
+
+
+                    <label class="control-label" for="activo">Activo</label>
+                    <div class="controls">
+                        <input type="checkbox" data-ng-model="empresa.activo" id="activo" class="form-control" placeholder="Activo">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>

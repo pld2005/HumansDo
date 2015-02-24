@@ -60,13 +60,9 @@ angular.module('personals').controller('PersonalsController', ['$scope', '$state
 		$scope.find = function() {
 			$scope.personals = Personals.query();
 			$scope.displayCollection = [].concat($scope.personals);
-<<<<<<< HEAD
-			$scope.itemsByPage=3;
-=======
 			//paginacion
-			$scope.itemsByPage=3;
+			$scope.itemsByPage=25;
  			//$scope.authentication.user.firstName;
->>>>>>> parent of 67a545d... Agregue modulo CRUS users
 		};
 
 		// Find existing Personal

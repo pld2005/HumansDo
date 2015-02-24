@@ -9,6 +9,16 @@ module.exports = function(app) {
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
 
+	app.route('/managmentusers').get(users.list);
+
+	//Setting up the users edit
+	app.route('/managmentusers/:userId')
+	.get(users.read)
+	.put(users.requiresLogin, users.isSuperadmin, users.adminUpdate);
+	app.route('/users/accounts').delete(users.removeOAuthProvider);
+	//	.delete(users.requiresLogin, users.hasAuthorization, users.delete);
+
+
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
 	app.route('/users').put(users.update);
@@ -53,5 +63,5 @@ module.exports = function(app) {
 	app.route('/auth/github/callback').get(users.oauthCallback('github'));
 
 	// Finish by binding the user middleware
-	app.param('userId', users.userByID);
+	app.param('userId', users.getUser);
 };
