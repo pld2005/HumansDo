@@ -56,6 +56,7 @@ exports.update = function(req, res) {
  * Delete an Empresa
  */
 exports.delete = function(req, res) {
+	
 	var empresa = req.empresa ;
 
 	empresa.remove(function(err) {

@@ -17,6 +17,7 @@ var _ = require('lodash'),
  * Forgot for reset password (forgot POST)
  */
 exports.forgot = function(req, res, next) {
+
 	async.waterfall([
 		// Generate random token
 		function(done) {

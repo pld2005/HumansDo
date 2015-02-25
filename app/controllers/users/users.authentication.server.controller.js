@@ -15,7 +15,7 @@ var _ = require('lodash'),
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	//delete req.body.roles;
-debugger
+
 	// Init Variables
 	var user = new User(req.body);
 	
@@ -65,6 +65,8 @@ debugger
  * Signin after passport authentication
  */
 exports.signin = function(req, res, next) {
+	
+
 	passport.authenticate('local', function(err, user, info) {
 		if (err || !user) {
 			res.status(400).send(info);

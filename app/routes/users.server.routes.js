@@ -9,20 +9,19 @@ module.exports = function(app) {
 	// User Routes
 	var users = require('../../app/controllers/users.server.controller');
 
-	app.route('/managmentusers').get(users.list);
+	app.route('/managmentusers').get(users.requiresLogin, users.isSuperadmin, users.list);
 
 	//Setting up the users edit
 	app.route('/managmentusers/:userId')
-	.get(users.read)
-	.put(users.requiresLogin, users.isSuperadmin, users.adminUpdate);
-	app.route('/users/accounts').delete(users.removeOAuthProvider);
-	//	.delete(users.requiresLogin, users.hasAuthorization, users.delete);
+		.get(users.read)
+		.put(users.requiresLogin, users.isSuperadmin, users.adminUpdate)
+		.delete(users.requiresLogin, users.isSuperadmin, users.delete);
 
 
 	// Setting up the users profile api
 	app.route('/users/me').get(users.me);
 	app.route('/users').put(users.update);
-	app.route('/users/accounts').delete(users.removeOAuthProvider);
+	//app.route('/users/accounts').delete(users.removeOAuthProvider);
 
 	// Setting up the users password api
 	app.route('/users/password').post(users.changePassword);

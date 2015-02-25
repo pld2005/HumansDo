@@ -5,7 +5,7 @@
 angular.module('users').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Usuarios', 'managmentusers', 'dropdown','managmentusers',true,['admin']);
+		Menus.addMenuItem('topbar', 'Usuarios', 'managmentusers', 'dropdown','managmentusers',true,['superadmin']);
 		Menus.addSubMenuItem('topbar', 'managmentusers', 'Listado', 'managmentusers');
 	}
 ]);

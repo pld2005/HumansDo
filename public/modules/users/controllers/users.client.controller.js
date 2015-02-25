@@ -10,7 +10,6 @@ angular.module('users').controller('UsersController', ['$scope', '$stateParams',
 			$scope.displayCollection = [].concat($scope.users);
 			//paginacion
 			$scope.itemsByPage=25;
- 			//$scope.authentication.user.firstName;
 		};
 
 		// Find existing Personal
@@ -22,12 +21,13 @@ angular.module('users').controller('UsersController', ['$scope', '$stateParams',
 
 		// Remove existing Personal
 		$scope.remove = function(user) {
+
 			if ( user ) { 
 				user.$remove();
 
-				for (var i in $scope.personals) {
-					if ($scope.personals[i].user === user) {
-						$scope.personals.splice(i, 1);
+				for (var i in $scope.users) {
+					if ($scope.users[i] === user) {
+						$scope.users.splice(i, 1);
 					}
 				}
 			} else {
@@ -37,18 +37,24 @@ angular.module('users').controller('UsersController', ['$scope', '$stateParams',
 			}
 		};
 
+
 		// Update existing Personal
-		$scope.adminUpdate = function() {
-			var user = $scope.managmentuser;
-			user.$update(function() {
-				$location.path('managmentusers');
-				Notification.success({message: 'Registro actualizado!', delay: 3000});
+		$scope.adminUpdate = function(isValid) {
+			if (isValid) {
+				$scope.success = $scope.error = null;
+				var user = new Users($scope.managmentuser);
 
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+				user.$update(function(response) {
+					$scope.success = true;
+					$location.path('managmentusers');
+					Notification.success({message: 'Registro actualizado!', delay: 3000});
+
+				}, function(response) {
+					$scope.error = response.data.message;
+				});
+			} else {
+				$scope.submitted = true;
+			}
 		};
-
-
 	}
 ]);

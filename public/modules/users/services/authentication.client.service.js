@@ -4,7 +4,7 @@
 angular.module('users').factory('Authentication', [
 	function() {
 		var _this = this;
-debugger
+
 		_this._data = {
 			user: window.user
 		};

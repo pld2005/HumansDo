@@ -22,51 +22,45 @@ exports.read = function(req, res) {
  */
 exports.adminUpdate = function(req, res) {
 	// Init Variables
-
-
-	
 	var user = req.managmentuser;
 	var message = null;
 
 	// For security measurement we remove the roles from the req.body object
 	//delete req.body.roles;
 
-	if (user) {
-		// Merge existing user
-		user = _.extend(user, req.body);
-		user.updated = Date.now();
-		user.displayName = user.firstName + ' ' + user.lastName;
 
-		user.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				res.json(user);
-			}
-		});
-	} else {
-		res.status(400).send({
-			message: 'User is not signed in'
-		});
-	}
-};
- /* Delete an Personal
- 
-exports.delete = function(req, res) {
-	var personal = req.personal ;
+	// Merge existing user
+	user = _.extend(user, req.body);
+	user.updated = Date.now();
+	user.displayName = user.firstName + ' ' + user.lastName;
 
-	personal.remove(function(err) {
+	user.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(personal);
+			res.json(user);
 		}
 	});
-};*/
+};
+ /* Delete an Personal
+ */
+exports.delete = function(req, res) {
+	var user = req.managmentuser ;
+
+	user.remove(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(user);
+		}
+	});
+};
+
+
 
 /**
  * List of Personals
@@ -97,7 +91,7 @@ exports.getUser = function(req, res, next, id) {
  * Personal authorization middleware
 */
 exports.isSuperadmin = function(req, res, next) {
-	var role = ['admin'];
+	var role = ['superadmin'];
 	if (!req.isAuthenticated()) {
 		return res.status(401).send({
 			message: 'User is not logged in'

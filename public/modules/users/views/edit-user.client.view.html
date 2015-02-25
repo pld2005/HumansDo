@@ -3,7 +3,7 @@
         <h1>Editar usuario</h1>
     </div>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form name="userForm" data-ng-submit="adminUpdate()" class="signin form-horizontal" novalidate autocomplete="off">
+		<form name="userForm" data-ng-submit="adminUpdate(userForm.$valid)" class="signin form-horizontal" novalidate autocomplete="off">
 			<fieldset>
 				<div class="form-group">
 					<label for="firstName">Nombre</label>
