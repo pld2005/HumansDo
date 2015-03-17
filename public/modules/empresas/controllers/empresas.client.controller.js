@@ -1,8 +1,9 @@
 'use strict';
 
+
 // Empresas controller
-angular.module('empresas').controller('EmpresasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Empresas',  'Notification',
-	function($scope, $stateParams, $location, Authentication, Empresas, Notification) {
+angular.module('empresas').controller('EmpresasController', ['$scope', '$stateParams', '$location', 'Authentication','Empresas',  'Notification',
+	function($scope, $stateParams, $location, Authentication, Empresas, Notification ) {
 		$scope.authentication = Authentication;
 
      	$scope.today = function() {

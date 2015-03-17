@@ -5,8 +5,11 @@
 angular.module('users').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Usuarios', 'managmentusers', 'dropdown','managmentusers',true,['superadmin']);
-		Menus.addSubMenuItem('topbar', 'managmentusers', 'Listado', 'managmentusers');
+		//               (menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position, icono)
+		Menus.addMenuItem('topbar', 'Config', 'empresas', 'dropdown', '#',false,['superadmin'],0, 'fa fa-gear');
+		Menus.addSubMenuItem('topbar', 'empresas', 'Cuentas', 'empresas');
+
+		Menus.addSubMenuItem('topbar', 'empresas', 'Usuarios', 'managmentusers');
 	}
 ]);
 // Config HTTP Error Handling

@@ -2,7 +2,7 @@
 
 module.exports = {
 	app: {
-		title: 'humansdo',
+		title: 'MRA',
 		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
@@ -15,9 +15,11 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-				'public/lib/angular-ui-notification/dist/angular-ui-notification.min.css'
-				
+				//'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/angular-ui-notification/dist/angular-ui-notification.min.css',
+				'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',			
+				'public/lib/adminLTE/dist/css/AdminLTE.css',	
+				'public/lib/adminLTE/dist/css/skins/skin-black.min.css',
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -33,7 +35,11 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',				
 				'public/lib/jquery/dist/jquery.js',
 				'public/lib/angular-smart-table/dist/smart-table.debug.js',
-				'public/lib/angular-ui-notification/dist/angular-ui-notification.min.js'
+				'public/lib/angular-ui-notification/dist/angular-ui-notification.min.js',
+				'public/lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js',
+				'public/lib/adminLTE/dist/js/app.js',	
+				'public/lib/moment/moment.js',	
+				'public/lib/angular-moment/angular-moment.js',	
 			]
 		},
 		css: [

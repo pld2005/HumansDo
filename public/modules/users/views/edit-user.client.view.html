@@ -1,50 +1,86 @@
 <section class="row" data-ng-controller="UsersController"  data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Editar usuario</h1>
-    </div>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form name="userForm" data-ng-submit="adminUpdate(userForm.$valid)" class="signin form-horizontal" novalidate autocomplete="off">
-			<fieldset>
-				<div class="form-group">
-					<label for="firstName">Nombre</label>
-					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="managmentuser.firstName" placeholder="First Name">
-				</div>
-				<div class="form-group">
-					<label for="lastName">Apellido</label>
-					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="managmentuser.lastName" placeholder="Last Name">
-				</div>
-				<div class="form-group" data-ng-controller="EmpresasController" data-ng-init="find()">
-					<label for="empresa">Empresa</label>
+    <section class="content-header">
+        <h1>
+            Usuario 
+            <small>edición</small>
+        </h1>
+    </section>
+    <section class="content">
+      	<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+			  	<!-- general form elements -->
+			  	<div class="box box-primary">
+					<form name="userForm" data-ng-submit="adminUpdate(userForm.$valid)" novalidate autocomplete="off">
+						<div class="row">
+							<div class="box-body">
+								<div class="col-lg-4">
+									<img src="modules/core/img/profile/profile1.png"><br>
+									<!--label for="exampleInputFile">File input</label>
+					              	<input type="file" id="exampleInputFile"-->
+								</div>
+								<div class="col-lg-8">
 
-					<select id="empresa" class="form-control glowing-border" data-ng-model="managmentuser.empresa" required >
-				      <option style="color:gray" value="" disabled="true">Seleccione una opción</option>
-				      <option ng-selected="{{empresa._id == managmentuser.empresa._id}}" data-ng-repeat="empresa in empresas" value="{{empresa._id}}">{{empresa.nombre}}</option>
-				    </select>
-				</div>
-				<div class="form-group" >
-					<label for="roles">Rol</label>
-					<select name="roles" class="form-control glowing-border" data-ng-model="managmentuser.roles" required>
-				      <option style="color:gray" value="" disabled="true">Seleccione una opción</option>
-				      <option  value="user">User</option>
-				      <option  value="admin">Admin</option>
-				    </select>
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="managmentuser.email" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="managmentuser.username" placeholder="Username">
-				</div>
+					                <div class="form-group">
+					                  	<label for="firstName">Nombre</label>
+										<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="managmentuser.firstName" placeholder="Nombre">
+					                </div>
+					                
+					                <div class="form-group">
+					                  	<label for="lastName">Apellido</label>
+										<input type="text" required id="lastName" name="lastName" class="form-control" data-ng-model="managmentuser.lastName" placeholder="Apellido">
+					                </div>
+					                
+									<div class="form-group" data-ng-controller="EmpresasController" data-ng-init="find()">
+										<label for="empresa">Empresa</label>
+										<select id="empresa" class="form-control glowing-border" data-ng-model="managmentuser.empresa" required >
+									      <option style="color:gray" value="" disabled="true">Seleccione una opción</option>
+									      <option ng-selected="{{empresa._id == managmentuser.empresa._id}}" data-ng-repeat="empresa in empresas" value="{{empresa._id}}">{{empresa.nombre}}</option>
+									    </select>
+									</div>
+					                
+									<div class="form-group" >
+										<label for="roles">Rol</label>
+										<select name="roles" class="form-control glowing-border" data-ng-model="managmentuser.roles" required>
+									      <option style="color:gray" value="" disabled="true">Seleccione una opción</option>
+									      <option  value="user">User</option>
+									      <option  value="admin">Admin</option>
+									    </select>
+									</div>
+									<div class="form-group">
+										<label for="email">Email</label>
+										<input type="email" id="email" name="email" class="form-control" data-ng-model="managmentuser.email" placeholder="Email">
+									</div>
+					                <div class="form-group">
+										<label for="username">Usuario</label>
+										<input type="username" id="username" name="username" class="form-control" data-ng-model="managmentuser.username" placeholder="Usuario">
+									</div>					
+									<div data-ng-show="error" class="callout callout-danger">
+										<strong data-ng-bind="error"></strong>
+									</div>
+								</div>	  
+					        </div>
 
-				<div class="text-center form-group">
-					<button type="submit" class="btn btn-large btn-primary">Save</button>
-				</div>
-				<div data-ng-show="error" class="text-center text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-			</fieldset>
-		</form>
-	</div>
+					        <div class="box-footer pull-right">
+					        	<div class="col-lg-12 ">
+					        		<button type="submit" class="btn btn-primary">Guardar</button>
+					        		<a class="btn btn-warning" href="#!/managmentusers">Cancelar</a>
+					      		</div> 
+					        	
+					      	</div> 
+					    </div>					
+					</form>
+				</div><!-- /.box -->
+    		</div><!--/.col -->
+  		</div><!-- /.row -->
+	</section>  
+
+
+
+
+
+
+
+
+
 </section>

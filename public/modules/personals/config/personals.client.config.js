@@ -4,8 +4,8 @@
 angular.module('personals').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Personal', 'personals', 'dropdown', '/personals(/create)?');
-		Menus.addSubMenuItem('topbar', 'personals', 'Listado', 'personals');
-		Menus.addSubMenuItem('topbar', 'personals', 'Agregar', 'personals/create');
+		//               (menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position, icono)
+ 
+		Menus.addMenuItem('topbar', 'Personal', 'personals', 'item', 'personals',false,['user','admin','superadmin'],1,'fa fa-users');
 	}
 ]);

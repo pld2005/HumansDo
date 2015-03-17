@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/humansdo-dev',
+	db: 'mongodb://localhost/mra-dev',
 	app: {
-		title: 'humansdo - Development Environment'
+		title: 'mra - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

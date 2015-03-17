@@ -158,6 +158,7 @@ module.exports = function(db) {
 		return httpsServer;
 	}
 
+
 	// Return Express server instance
 	return app;
 };

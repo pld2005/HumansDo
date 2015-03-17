@@ -1,59 +1,73 @@
 <section data-ng-controller="EmpresasController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Empresas</h1>
-    </div>
-    <div class="list-group">
-        <table st-table="displayCollection" st-safe-src="empresas" class="table table-striped">
-            <thead>
-            <tr>
-                <th colspan="3">
-                    <input st-search="" class="form-control" placeholder="buscar ..." type="text"/>
-                    <a href="/#!/empresas/create" class="btn btn-sm btn-success">
-                        <i class="glyphicon glyphicon-plus">
-                        </i> Agregar Empresa
-                    </button>
-                </th>
-            </tr>
-            <tr>
-                <th st-sort="nombre" st-skip-natural="true">Nombre</th>
-                <th st-sort="cuit" st-skip-natural="true">CUIT</th>
-                <th st-sort="domicilio">Domicilio</th>
-                <th st-sort="email">Email</th>
-                <th st-sort="activo">Activo</th>
-                <th st-sort="vigencia">Vigencia</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="row in displayCollection">
-                <td>{{row.nombre}}</td>
-                <td>{{row.cuit}}</td>
-                <td>{{row.domicilio}}</td>
-                <td>{{row.email}}</td>
-                <td>{{row.activo }}</td>
-                <td>{{row.vigencia | date: 'dd MMM yyyy'}}</td>
-                <td>
-                <a href="/#!/empresas/{{row._id}}/edit" class="btn btn-sm btn-success">
-                    <i class="glyphicon glyphicon-edit">
-                    </i>
-                </a>
-                <button type="button" ng-click="confirmClick() && remove(row)" confirm-click="Está seguro que desea eliminar el registro?" confirm-click class="btn btn-sm btn-danger">
-                    <i class="glyphicon glyphicon-trash">
-                    </i>
-                </button>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="6" class="text-center">
-                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!empresas.$resolved || empresas.length">
-    	No Empresas yet, why don't you <a href="/#!/empresas/create">create one</a>?
-    </div>
+    <section class="content-header">
+        <h1>
+            Cuentas
+            <small>Listado</small>
+        </h1>
+    </section>
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <table st-table="displayCollection" st-safe-src="empresas" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="5">
+                            <input st-search="" class="form-control" placeholder="buscar ..." type="text"/>
+                        </th>
+                        <th colspan="2">
+                            <a href="/#!/empresas/create" class="btn btn-sm btn-success">
+                                <i class="glyphicon glyphicon-plus">
+                                </i> Agregar Cuenta
+                            </a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th st-sort="nombre" st-skip-natural="true">Nombre</th>
+                        <th st-sort="cuit" st-skip-natural="true">CUIT</th>
+                        <th st-sort="domicilio">Domicilio</th>
+                        <th st-sort="email">Email</th>
+                        <th st-sort="activo">Activo</th>
+                        <th st-sort="vigencia">Vigencia</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in displayCollection">
+                        <td>{{row.nombre}}</td>
+                        <td>{{row.cuit}}</td>
+                        <td>{{row.domicilio}}</td>
+                        <td>{{row.email}}</td>
+                        <td><input type="checkbox" data-ng-model="row.activo" data-ng-disabled="true" class="btn-primary"></checkbox></td>
+                        <td>{{row.vigencia | date: 'dd MMM yyyy'}}</td>
+                        <td>
+                            <a href="/#!/empresas/{{row._id}}/edit" class="btn btn-sm btn-info">
+                                <i class="glyphicon glyphicon-edit">
+                                </i>
+                            </a>
+                            <button type="button" ng-click="confirmClick() && remove(row)" confirm-click="Está seguro que desea eliminar el registro?" confirm-click class="btn btn-sm btn-danger">
+                                <i class="glyphicon glyphicon-trash">
+                                </i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="alert alert-warning text-center" data-ng-hide="!empresas.$resolved || empresas.length">
+                No cuentas yet, why don't you <a href="/#!/empresas/create">create one</a>?
+            </div>
+          </div><!-- /.box -->
+        </div><!--/.col -->
+      </div>   <!-- /.row -->
+    </section>
+
 </section>

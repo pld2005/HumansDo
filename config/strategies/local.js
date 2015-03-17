@@ -16,7 +16,7 @@ module.exports = function() {
 		function(username, password, done) {
 			User.findOne({
 				username: username
-			}, function(err, user) {
+			}).populate('empresa', 'nombre').exec( function(err, user) {
 				if (err) {
 					return done(err);
 				}
@@ -30,7 +30,6 @@ module.exports = function() {
 						message: 'Unknown user or invalid password'
 					});
 				}
-
 				return done(null, user);
 			});
 		}

@@ -1,58 +1,111 @@
-<div class="container" data-ng-controller="HeaderController">
-	<div class="navbar-header">
-		<button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-		<a href="/#!/" class="navbar-brand">humansdo</a>
-	</div>
-	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
-		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
-			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
-				<a ng-switch-when="dropdown" class="dropdown-toggle">
-					<span data-ng-bind="item.title"></span>
-					<b class="caret"></b>
-				</a>
-				<ul ng-switch-when="dropdown" class="dropdown-menu">
-					<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
-						<a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
+<div data-ng-controller="HeaderController">
+
+	<header class="main-header">
+        <!-- Logo -->
+        <a href="#!/" class="logo">Humans<b>#DO</b></a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+        	<!-- Sidebar toggle button-->
+          	<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            	<span class="sr-only">Toggle navigation</span>
+          	</a>
+          	<div>
+				
+				<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
+					<!--li ui-route="/signup" ng-class="{active: $uiRoute}">
+						<a href="/#!/signup">Sign Up</a>
+					</li-->
+					<li class="divider-vertical"></li>
+					<li ui-route="/signin" ng-class="{active: $uiRoute}">
+						<a href="/#!/signin">Sign In</a>
 					</li>
 				</ul>
-				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
-			</li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
-			<li ui-route="/signup" ng-class="{active: $uiRoute}">
-				<a href="/#!/signup">Sign Up</a>
-			</li>
-			<li class="divider-vertical"></li>
-			<li ui-route="/signin" ng-class="{active: $uiRoute}">
-				<a href="/#!/signin">Sign In</a>
-			</li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<span data-ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
-				</a>
-				<ul class="dropdown-menu">
-					<li>
-						<a href="/#!/settings/profile">Edit Profile</a>
-					</li>
-					<li>
-						<a href="/#!/settings/accounts">Manage Social Accounts</a>
-					</li>
-					<li data-ng-show="authentication.user.provider === 'local'">
-						<a href="/#!/settings/password">Change Password</a>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<a href="/auth/signout">Signout</a>
-					</li>
+				<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
+		            <li class="dropdown user user-menu">
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                  <img src="lib/adminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+		                  <span class="hidden-xs" data-ng-bind="authentication.user.displayName"></span>
+		                </a>
+		                <ul class="dropdown-menu">
+							<!-- User image -->
+							<li class="user-header">
+								<img src="lib/adminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+								<p>
+								  <span data-ng-bind="authentication.user.displayName"></span>
+								  <small data-ng-bind="authentication.user.empresa.nombre"></small>
+								</p>
+							</li>
+							<!-- Menu Body -->
+							<li class="user-body">
+								<div class="col-xs-4 text-center">
+								  <a href="/#!/settings/profile" class="btn btn-default btn-sm">Perfil</a>
+								</div>
+								<div class="col-xs-4 text-center">
+								  <a href="/#!/settings/password" class="btn btn-default btn-sm">Contraseña</a>
+								</div>
+								<div class="pull-right">
+								  <a href="/auth/signout" class="btn btn-default btn-sm">Salir</a>
+								</div>
+							</li>
+							<!-- Menu Footer->
+		                  	<li class="user-footer">
+			                    <div class="pull-left">
+			                      <a href="/#!/settings/profile" class="btn btn-default btn-flat">Perfil</a>
+			                    </div>                    
+			                    <div class="pull-center">
+			                      <a href="/#!/settings/password" class="btn btn-default btn-flat">Contraseña</a>
+			                    </div>
+			                    <div class="pull-right">
+			                      <a href="/auth/signout" class="btn btn-default btn-flat">Salir</a>
+			                    </div>
+		                  	</li-->
+		                </ul>
+		            </li>
 				</ul>
+			</div>
+		</nav>
+	</header>
+      <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="lib/adminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p p data-ng-bind="authentication.user.displayName"></p>
+
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+
+            <li class="header">MEMU PRINCIPAL</li>
+			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ui-route="{{item.uiRoute}}" class="treeview" >
+				<a href="#"  data-ng-if="item.menuItemType != 'item'">
+	                <i class="{{item.icon}}"></i>
+	                <span data-ng-bind="item.title"></span>
+	                <i class="fa fa-angle-left pull-right"></i>
+	            </a>
+	            <a href="/#!/{{item.link}}"  data-ng-if="item.menuItemType == 'item'">
+	                <i class="{{item.icon}}"></i>
+	                <span data-ng-bind="item.title"></span>
+	            </a>
+				<ul class="treeview-menu" data-ng-if="item.menuItemType != 'item'">
+	                <li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}">
+	                	<a href="/#!/{{subitem.link}}" >
+	                		<i class="fa fa-circle-o"></i>&nbsp;{{subitem.title}} 
+	                	</a>
+	                </li>
+	            </ul>
 			</li>
-		</ul>
-	</nav>
+
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
 </div>
