@@ -1,9 +1,24 @@
 'use strict';
 
-// Ips controller
-angular.module('ips').controller('IpsController', ['$scope', '$stateParams', '$location','Authentication', 'Ips',
-	function($scope, $stateParams, $location, Authentication, Ips) {
+angular.module('ips').controller('IpsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ips', 'Socket',
+	function($scope, $stateParams, $location, Authentication, Ips, Socket) {
 		$scope.authentication = Authentication;
+
+		       
+		Socket.on('message', function(msg, id) {
+		    $scope.ips = Ips.query();
+		    console.log(msg);
+		});
+
+		$scope.countEvent = function(status){
+		    var total = 0;
+		    for(var i = 0; i < $scope.ips.length; i++){
+		        var ip = $scope.ips[i];
+		        if (ip.status === status)
+		        total += 1;
+		    }
+		    return total;
+		};
 
 		// Create new Ip
 		$scope.create = function() {

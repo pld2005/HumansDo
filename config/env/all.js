@@ -19,10 +19,13 @@ module.exports = {
 				'public/lib/angular-ui-notification/dist/angular-ui-notification.min.css',
 				'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',			
 				'public/lib/adminLTE/dist/css/AdminLTE.css',	
-				'public/lib/adminLTE/dist/css/skins/skin-black.min.css',
+				'public/lib/adminLTE/dist/css/skins/skin-blue.min.css',
 			],
 			js: [
 				'public/lib/angular/angular.js',
+				'public/lib/angular-socket-io/socket.js',
+				'https://cdn.socket.io/socket.io-1.3.4.js',
+				
 				'public/lib/angular/angular-locale_es-ar.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-cookies/angular-cookies.js', 
@@ -38,8 +41,9 @@ module.exports = {
 				'public/lib/angular-ui-notification/dist/angular-ui-notification.min.js',
 				'public/lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js',
 				'public/lib/adminLTE/dist/js/app.js',	
-				'public/lib/moment/moment.js',	
-				'public/lib/angular-moment/angular-moment.js',	
+				'public/lib/moment/moment.js',
+				'public/lib/angular-moment/angular-moment.min.js'	
+				
 			]
 		},
 		css: [

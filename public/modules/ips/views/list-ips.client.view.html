@@ -1,35 +1,49 @@
 <section data-ng-controller="IpsController" data-ng-init="find()">
     <div class="page-header">
-        <h1>Ips</h1>
+    <div class="row">
+        <div class="col-xs-6"><input ng-model="searchKeyword" class="form-control" placeholder="buscar ..." type="text"/></div>
+                <div class="col-xs-2">
+                    <a class="btn btn-block btn-danger btn-sm" ng-click="searchKeyword = {status:'error'}">{{countEvent('error')}} Services Down</a>
+                </div>
+                <div class="col-xs-2">
+                    <a class="btn btn-block btn-warning btn-sm" ng-click="searchKeyword = {status:'warning'}">{{countEvent('warning')}} Services Warning</a>
+                </div>
+                <div class="col-xs-2">
+                    <a class="btn btn-block btn-success btn-sm" ng-click="searchKeyword = {status:'success'}">{{countEvent('success')}} Services Online</a>
+                </div>
+    </div>
+        
+    
     </div>
     <div class="list-group">
         
         <table class="table-services table sorted table-striped table-condensed">
             <thead>
-                <th>Status</th>
-                <th>Group</th>
-                <th>Entrance</th>
-                <th>IP</th>
-                <th>Status Ping</th>
-                <th>Last Count</th>
+                <th><a href="" ng-click="orderByField='status'; reverseSort = !reverseSort">Status</a></th>
+                <th><a href="" ng-click="orderByField='groupname'; reverseSort = !reverseSort">Group</a></th>
+                <th><a href="" ng-click="orderByField='entrance'; reverseSort = !reverseSort">Entrance</a></th>
+                <th><a href="" ng-click="orderByField='ip'; reverseSort = !reverseSort">IP</a></th>
+                <th><a href="" ng-click="orderByField='statusping'; reverseSort = !reverseSort">Status Ping</a></th>
+                <th><a href="" ng-click="orderByField='lastcount'; reverseSort = !reverseSort">Last Count</a></th>
+                <th><a href="" ng-click="orderByField='uptime'; reverseSort = !reverseSort">Uptime</a></th>
 
             </thead>
             <tbody>
 
-                <tr data-ng-repeat="ip in ips"  class="result-{{ip.status}}">
+                <tr data-ng-repeat="ip in ips | filter: searchKeyword | orderBy:orderByField:reverseSort"  class="result-{{ip.status}}">
                     <td>
-                        <span class="label label-danger"  ng-if="ip.status != 'success' && ip.status != 'warning'">offline</span>
-                        <span class="label label-success"  ng-if="ip.status == 'success'">online</span>
-                        <span class="label label-warning"  ng-if="ip.status == 'warning'">warning</span>
+                        <span class="label label-danger"  ng-if="ip.status != 'success' && ip.status != 'warning'">{{ip.status}}</span>
+                        <span class="label label-success"  ng-if="ip.status == 'success'">{{ip.status}}</span>
+                        <span class="label label-warning"  ng-if="ip.status == 'warning'">{{ip.status}}</span>
         
                     </td>
                     
                     <td>{{ip.groupname}}</td>
                     
                     <td  class="hosturl">
-                        <a class="name" >
+                        <div class="name" >
                             {{ip.entrance}}
-                        </a>
+                        </div>
                         <span class="hidden-xs last_check">{{ip.site}} / {{ip.zone}}</span>
                     </td>
                     
@@ -44,7 +58,7 @@
 
                         <span class="hidden-xs last_check" ng-if="ip.status == 'error'"> 
                             last ping success:
-                            {{(ip.lastpingsucces | date: 'MMM d, HH:mm:ss') || "since the beginning of time"}}
+                            {{(ip.lastpingsucces | date: 'MMM d, HH:mm:ss') || "never"}}
                             <br><span am-time-ago="ip.lastpingsucces"></span>
                         </span>
                     </td>
@@ -54,9 +68,14 @@
                         <br><span class="hidden-xs last_check">RTT: {{ip.roundtrip}}</span>
 
                     </td>
-                    <td>{{ip.lastcount | date: 'MMM d, HH:mm:ss'}}
-                    <br><span class=" label-success"><i class="fa fa-fw fa-arrow-up"></i>{{ip.lastin}}</span>
-                    <span class=" label-danger"><i class="fa fa-fw fa-arrow-down"></i>{{ip.lastout}}</span>
+                    <td>
+                    
+                    <small class="label label-success"><i class="fa fa-fw fa-arrow-up"></i></small><small class="label label-default"> IN: {{ip.lastin}}</small>
+                    <small class="label label-danger"><i class="fa fa-fw fa-arrow-down"></i></small><small class="label label-default"> OUT: {{ip.lastout}}</small><br>
+                    {{ip.lastcount | date: 'MMM d, HH:mm:ss'}} <span am-time-ago="ip.lastcount"></span>
+                    </td>
+                    <td>
+                        <div class="name">{{ip.uptime}}</div>
                     </td>
                 </tr>
             </tbody>

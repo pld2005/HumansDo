@@ -60,13 +60,6 @@
     content: '\25BC';
 }
 
-body {
-  padding-top: 60px;
-}
-
-a {
-  color: #00B7FF;
-}
 
 /*overview*/
 #status-overview {
@@ -169,7 +162,7 @@ a {
 .result-warning, .warning, .warnings{color:orange;}
 
 .last_check{
-  color:#ccc;
+  color:#838181;
 }
 
 /* details page */
@@ -212,12 +205,3 @@ a {
   min-height: 100px;
 }
 
-footer{
-  color:#ccc;
-  padding:20px;
-  text-align: center;
-}
-
-footer a {
-  color:#c2c2c2;
-}

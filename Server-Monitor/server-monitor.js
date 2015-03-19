@@ -1,8 +1,19 @@
 // Load the TCP Library
 net = require('net');
-
+var moment = require('moment');
 var mongoose = require('mongoose'),
 	crypto = require('crypto');
+
+var mubsub = require('mubsub');
+var client = mubsub('mongodb://localhost/mra-dev');
+var channel = client.channel('sync');
+
+client.on('error', console.error);
+channel.on('error', console.error);
+
+channel.subscribe('sync', function (message) {
+    console.log(message); // => 'bar'
+});
 
 
 var db = mongoose.connection;
@@ -35,6 +46,9 @@ db.on('error', console.error);
 		lastvisitas: {type: Date},
 		lastpint: {type: Date},
 		lastpingsuccess: {type: Date},
+		firstdata: {type: Date},
+		uptimeminutes: {type: Number},
+		uptime: {type: String},
 		ttl: {type: String},
 		roundtrip: {type: String},
 		buffer: {type: String},
@@ -130,15 +144,12 @@ Ip = mongoose.model('Ip');
  
 // Start a TCP Server
 net.createServer(function (socket) {
-try {
-
   	// Identify this client
   	socket.name = socket.remoteAddress + ":" + socket.remotePort 
 
   	// Handle incoming messages from clients.
   	socket.on('close', function (sock){
-  		console.log(sock.name + ' Cerrado! -----------------------')
-
+  		console.log('Socket Closed! -----------------------');
   	});
 
 	socket.on('error', function  (err) {
@@ -148,63 +159,29 @@ try {
 
   	socket.on('data', function (data) {
   		data = JSON.parse(data);
-		console.log('DATA  -->> ' + data);
-if (data.header=='$auth') {
-	validarUsuario(data.user,data.pass,socket);
-}else if (data.header=='$data'){
-	socket.write('ok');
-	userid = socket.user._id;
-	guardarTrama(userid, data);
-}
-		/**********************************+
-		var arrData = data.toString().split('|');
-		//reviso cabecera para ver que estan enviando
-		//si viene $auth, verificar si el usuario existe
-		if (arrData[0]==='$auth'){
-			var u = arrData[1];
-			var p = arrData[2];
-			validarUsuario(u,p,socket);
-
-			//console.log('USER ' + socket.name + ' -->> ' + data);
-		}else if (arrData[0]==='$data'){
-			//console.log('DATA ' + socket.name + ' -->> ' + data);
+		if (data.header=='$auth') {
+			validarUsuario(data.user,data.pass,socket);
+		}else if (data.header=='$data'){
 			socket.write('ok');
 			userid = socket.user._id;
-			guardarTrama(userid, arrData);
+			guardarTrama(userid, data);
+		}else if (data.header=='$end'){
+			channel.publish('ips', {update: new Date()});
+			console.log('FIN--------------------');
 		}
-		***********************************/
 
   	});
  
  	function guardarTrama (userid, trama){
-  		/***********************
-  		var trama = {
-	 		group: arrayData[1],
-	 		ip: arrayData[2],
-	 		statusping: arrayData[3],
-	 		site: arrayData[4],
-	 		zone: arrayData[5],
-	 		entrance: arrayData[6],
-	 		devicetype: arrayData[7],
-	 		devicekey: arrayData[8],
-	 		entrancekey: arrayData[9],
-	 		lastin: arrayData[10],
-	 		lastout: arrayData[11],
-	 		lastcount: arrayData[12],
-	 		lastvisitas: arrayData[13],
-	 		lastping: arrayData[14],
-	 		ttl: arrayData[15],
-	 		roundtrip: arrayData[16],
-	 		buffer: arrayData[17]
-  		}
-  		**********************/
-		//console.log(trama);
+  		
 		Ip.findOne({ $and: [
  			{ groupname: trama.groupname }, 
  			{ devicekey: trama.devicekey },
  			{ entrancekey: trama.entrancekey },
  			{ ip: trama.ip  }]}, function(err, ip) {
     			if(!err) {
+					var ahoraLocal = moment(new Date()).add(trama.timeoffset, 'hours');;
+
         			if(!ip) {
         				//No encontro el registro, crear uno nuevo
 			            ip = new Ip();
@@ -218,30 +195,50 @@ if (data.header=='$auth') {
 							ip.lastpingsuccess	= trama.lastping;
 							ip.status = "success"
 						}
+						//es la primer trama de esta ip, guardar la fecha 
+						ip.firstdata = new Date();
+						ip.uptimeminutes = 0;
+						ip.uptime = '100%';
 			        }else{
+			        	var signo;
 						if (trama.statusping !== 'Success') {
 							//SIN PING
 							ip.lastpingsuccess	= trama.lastping;
 							ip.status = "error";
+							signo = -1;
 						}else{
 							//CON PING
 							ip.status = "success";
+							signo = 1;
 						}
+
+						//actualizar uptime
+						var tiempoTotal;
+						var tiempoParcial;
+						tiempoParcial = (((ahoraLocal - ip.firstdata)/1000)/60)*signo;
+						tiempoTotal = (((ahoraLocal - ip.firstdata)/1000)/60);
+						
+						var uptime = Math.round( tiempoParcial*100/tiempoTotal, 2)
+						ip.uptimeminutes =  ip.uptimeminutes+tiempoParcial;
+
+
+						ip.uptime =  uptime + '%';
 			        }
 
 			        //verificar desde cuando tiene conteo
 			        var tiemposinconteo;
-			        var ultimoconteo = new Date(trama.lastcount);
-			        var ahora = new Date();
-			        tiemposinconteo = (((ahora - ultimoconteo)/1000)/60);
+			        var ultimoconteo = moment(new Date(trama.lastcount)).add(trama.timeoffset, 'hours');
+			       
+			        
+
+			        tiemposinconteo = (((ahoraLocal - ultimoconteo)/1000)/60);
 					if (tiemposinconteo > 60 && ip.status == 'success') {
 						ip.status = "warning";
 					}else{
 
 					}
 
-
-
+				
 					ip.groupname = trama.groupname;        
 					ip.ip = trama.ip;              
 					ip.statusping = trama.statusping;  
@@ -254,7 +251,7 @@ if (data.header=='$auth') {
 					ip.lastin = trama.lastin;      
 					ip.lastout = trama.lastout;     
 					ip.lastcount = trama.lastcount;     
-					ip.lastvisitas = trama.lastvisitas;    
+					ip.lastvisitas = trama.lastvisitas    
 					ip.lastping = trama.lastping;    
 					ip.ttl = trama.ttl;           
 					ip.roundtrip = trama.roundtrip;    
@@ -264,22 +261,22 @@ if (data.header=='$auth') {
 
 			        ip.save(function(err) {
 			            if(!err) {
-			                console.log("IP ID" + ip._id + " created at " + ip.entrance );
+			                console.log("d_ID: " + trama.devicekey + " e_ID: " + trama.entrancekey + " IP: " + trama.ip + " UPDATED!");
+			                
 			            }
 			            else {
 			                console.log("Error: could not save ip " + err);
+			                console.log("             " + trama.devicekey);
+			                console.log("             " + trama.entrancekey);
+			                console.log("             " + trama.lastvisitas);
 			            }
 			        });
 	    		}
-			}); 
-		
+			}); 		
  	}
 
  	function validarUsuario(username, password,sock){
  		var res;
-console.log('u: ' + username );
-console.log('p: ' + password );
-
  		User.findOne({
  			username: username
 			}).exec(function(err, user) {
@@ -305,14 +302,7 @@ console.log('p: ' + password );
 				sock.user = user;
 				sock.write('ok!');
 			});	
-
-
  	}
-
-
-} catch (ex) {
-    console.log("ERROR " + ex);
-}
 
 }).listen(4000);
  
