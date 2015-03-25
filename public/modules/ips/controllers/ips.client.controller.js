@@ -17,10 +17,11 @@ angular.module('ips').controller('IpsController', ['$scope', '$stateParams', '$l
 		        if (ip.status === status)
 		        total += 1;
 		    }
+		    var porc = (total / $scope.ips.length * 100);
 		    if (soloporcetanje==1){
-		    	return  total / $scope.ips.length * 100 + '%';		    	
+		    	return  Math.round(porc, 2) + '%';		    	
 		    }else{
-		    	return total + ' (' + total / $scope.ips.length * 100 + '%)';		    	
+		    	return total + ' (' + Math.round(porc, 2) + '%)';		    	
 		    }
 		};
 
