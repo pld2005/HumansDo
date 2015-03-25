@@ -20,7 +20,7 @@ module.exports = {
 				'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',			
 				'public/lib/adminLTE/dist/css/AdminLTE.css',	
 				'public/lib/adminLTE/dist/css/skins/skin-blue.min.css',
-				'http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css'
+				'public/lib/ionicons/css/ionicons.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
