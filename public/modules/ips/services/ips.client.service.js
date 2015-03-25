@@ -13,3 +13,9 @@ angular.module('ips').factory('Ips', ['$resource',
 	}
 ]);
 
+//Ips service used to communicate Ips REST endpoints
+angular.module('ips').factory('Cantreg', ['$resource',
+	function($resource) {
+		return $resource('cantreg');
+	}
+]);

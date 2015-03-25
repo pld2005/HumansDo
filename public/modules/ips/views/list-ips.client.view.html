@@ -22,6 +22,7 @@
                 <th><a href="" ng-click="orderByField='status'; reverseSort = !reverseSort">Status</a></th>
                 <th><a href="" ng-click="orderByField='groupname'; reverseSort = !reverseSort">Group</a></th>
                 <th><a href="" ng-click="orderByField='entrance'; reverseSort = !reverseSort">Entrance</a></th>
+                <th><a href="" ng-click="orderByField='devicetype'; reverseSort = !reverseSort">Device Type</a></th>
                 <th><a href="" ng-click="orderByField='ip'; reverseSort = !reverseSort">IP</a></th>
                 <th><a href="" ng-click="orderByField='statusping'; reverseSort = !reverseSort">Status Ping</a></th>
                 <th><a href="" ng-click="orderByField='lastcount'; reverseSort = !reverseSort">Last Count</a></th>
@@ -46,6 +47,8 @@
                         </div>
                         <span class="hidden-xs last_check">{{ip.site}} / {{ip.zone}}</span>
                     </td>
+                    
+                    <td>{{ip.devicetype}}</td>
                     
                     <td>
                         <span class="label label-default">{{ip.ip}}</span><br>

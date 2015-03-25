@@ -30,6 +30,8 @@
     "helmet": "~0.5.0",
     "lodash": "~2.4.1",
     "method-override": "~2.3.0",
+    "moment": "^2.9.0",
+    "mongodb": "^1.4.34",
     "mongoose": "~3.8.8",
     "mongoose-middleware": "^0.2.10",
     "morgan": "~1.4.1",

@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/mra-dev',
 	app: {
-		title: 'mra - Development Environment'
+		title: 'Pulse - Active Remote Monitoring'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',

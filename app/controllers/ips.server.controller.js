@@ -3,6 +3,13 @@
 /**
  * Module dependencies.
  */
+var MongoClient = require('mongodb').MongoClient,
+ assert = require('assert');
+// Connection URL
+var url = 'mongodb://localhost/mra-dev';
+
+
+
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Ip = mongoose.model('Ip'),
@@ -105,3 +112,38 @@ exports.hasAuthorization = function(req, res, next) {
 	}
 	next();
 };
+
+
+/**
+ * Cantidad de registridos agrupados
+ */
+exports.cantreg = function(req, res) { 
+	// Use connect method to connect to the Server
+	MongoClient.connect(url, function(err, db) {
+	  assert.equal(null, err);
+	  console.log('Connected correctly to server');
+
+	  	var ips = db.collection('ips');
+
+		
+	  	ips.aggregate([
+			    {
+			        $group: {
+			            _id: "$status",
+			            cantidad: { $sum : 1 }
+			        }
+			    }
+			],function(err, result) {
+	        	if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.jsonp(result);
+				}
+				db.close();
+			});
+		
+	});
+};
+  

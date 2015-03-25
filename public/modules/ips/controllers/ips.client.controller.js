@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('ips').controller('IpsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ips', 'Socket',
-	function($scope, $stateParams, $location, Authentication, Ips, Socket) {
+angular.module('ips').controller('IpsController', ['$scope', '$stateParams', '$location', '$http', 'Authentication', 'Ips', 'Socket', 'Cantreg',
+	function($scope, $stateParams, $location,$http,  Authentication, Ips, Socket, Cantreg) {
 		$scope.authentication = Authentication;
 
 		       
@@ -10,14 +10,18 @@ angular.module('ips').controller('IpsController', ['$scope', '$stateParams', '$l
 		    console.log(msg);
 		});
 
-		$scope.countEvent = function(status){
+		$scope.countEvent = function(status, soloporcetanje){
 		    var total = 0;
 		    for(var i = 0; i < $scope.ips.length; i++){
 		        var ip = $scope.ips[i];
 		        if (ip.status === status)
 		        total += 1;
 		    }
-		    return total;
+		    if (soloporcetanje==1){
+		    	return  total / $scope.ips.length * 100 + '%';		    	
+		    }else{
+		    	return total + ' (' + total / $scope.ips.length * 100 + '%)';		    	
+		    }
 		};
 
 		// Create new Ip
@@ -76,6 +80,19 @@ angular.module('ips').controller('IpsController', ['$scope', '$stateParams', '$l
 			$scope.ip = Ips.get({ 
 				ipId: $stateParams.ipId
 			});
+		};
+
+		$scope.resumen = function() {
+			$http.get('/Cantreg').success(function (data){
+				var xx = data;
+			}).error(function(){
+
+			});
+			//var r = Ips.cantreg();
+
+
+
+			debugger;
 		};
 	}
 ]);

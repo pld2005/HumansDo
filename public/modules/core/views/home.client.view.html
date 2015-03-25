@@ -1,21 +1,58 @@
 <section data-ng-controller="HomeController">
-	<div class="jumbotron text-center">
+<section class="content-header">
+          <h1>
+            Dashboard
+            <small>Status</small>
+          </h1>
+        </section>			
+<section class="content">		
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-				<img alt="MEAN.JS" class="img-responsive text-center" src="modules/core/img/brand/logo.png" />
+			<div class="col-md-4">
+				<a href="/#!/ips">
+				<div class="box box-solid box-default">
+	                <div class="box-header">
+	                  <h3 class="box-title"><i class="ion-ios-pulse-strong"> </i> Mallplaza</h3>   
+	                </div>
+	                <div class="box-body">
+	                	<div class="row" data-ng-controller="IpsController"  data-ng-init="find()">
+							<div class="col-lg-6 col-xs-6">
+							  <!-- small box -->
+								<div class="small-box bg-red">
+							    	<div class="inner">
+							      		<h3>
+							        		{{countEvent('error', 1)}}
+							      		</h3><p></p>
+							    	</div>
+							    	<div class="icon">
+							      		<i class="ion-close-circled"></i>
+							    	</div>
+							    	<div class="small-box-footer">
+							    		Offline
+							    	</div>
+							  	</div>
+							</div>
+			  	          	<div class="col-lg-6 col-xs-6">
+							  <!-- small box -->
+								<div class="small-box bg-yellow">
+							    	<div class="inner">
+							      		<h3>{{countEvent('warning', 1)}}</h3><p></p>
+							    	</div>
+							    	<div class="icon">
+							      		<i class="ion-alert-circled"></i>
+							    	</div>
+							    	<div class="small-box-footer">
+							    		Warning
+							    	</div>
+							  	</div>
+							</div>
+			            </div>
+	            	</div>
+				</div>
+				</a>
+              </div>
 			</div>
 		</div>
-		<br>
-		<div class="row">
-			<p class="lead">
-				Open-Source Full-Stack Solution For MEAN Applications
-			</p>
-		</div>
-		<div class="row">
-			<p>
-				<a class="btn btn-primary btn-lg" href="http://meanjs.org" target="_blank">Learn more</a>
-			</p>
-		</div>
+
 	</div>
 
 </section>

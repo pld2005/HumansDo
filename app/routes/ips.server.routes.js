@@ -6,8 +6,11 @@ module.exports = function(app) {
 
 	// Ips Routes
 	app.route('/ips')
-		.get(ips.list)
+		.get(ips.list, ips.cantreg)
 		.post(users.requiresLogin, ips.create);
+
+app.route('/cantreg')
+		.get(ips.cantreg);
 
 	app.route('/ips/:ipId')
 		.get(ips.read)

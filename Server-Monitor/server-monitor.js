@@ -203,7 +203,7 @@ net.createServer(function (socket) {
 			        	var signo;
 						if (trama.statusping !== 'Success') {
 							//SIN PING
-							ip.lastpingsuccess	= trama.lastping;
+							//ip.lastpingsuccess	= trama.lastping;
 							ip.status = "error";
 							signo = -1;
 						}else{

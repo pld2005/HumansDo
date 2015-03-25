@@ -2,7 +2,7 @@
 
 module.exports = {
 	app: {
-		title: 'MRA',
+		title: 'Pulse - Active Remote Monitoring',
 		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
@@ -20,6 +20,7 @@ module.exports = {
 				'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',			
 				'public/lib/adminLTE/dist/css/AdminLTE.css',	
 				'public/lib/adminLTE/dist/css/skins/skin-blue.min.css',
+				'http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',

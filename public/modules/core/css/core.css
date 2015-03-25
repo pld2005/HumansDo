@@ -61,24 +61,7 @@
 }
 
 
-/*overview*/
-#status-overview {
-  text-align: right;
-  padding: 10px;
-  font-size: 1.5em;
-  color: white;
-}
 
-#status-overview span {
-  color: white;
-  display: inline;
-  padding: 5px 12px;
-  border-radius: 5px;
-}
-
-#status-overview .down{
-  background-color:red;
-}
 
 .filter-container {
   max-width: 400px;
@@ -93,7 +76,6 @@
 }
 .filter-container span {
     position: absolute;
-    right: 0px;
     padding: 10px 12px;
     pointer-events: none;
 }
