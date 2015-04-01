@@ -20,13 +20,19 @@ module.exports = {
 				'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',			
 				'public/lib/adminLTE/dist/css/AdminLTE.css',	
 				'public/lib/adminLTE/dist/css/skins/skin-blue.min.css',
-				'public/lib/ionicons/css/ionicons.min.css'
+				'public/lib/ionicons/css/ionicons.min.css',
+				'public/lib/nvd3/nv.d3.css',
+
 			],
 			js: [
 				'public/lib/angular/angular.js',
+				'public/lib/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
+				'public/lib/d3/d3.min.js',
+				'public/lib/nvd3/nv.d3.js',
+				
+
 				'public/lib/angular-socket-io/socket.js',
 				'https://cdn.socket.io/socket.io-1.3.4.js',
-				
 				'public/lib/angular/angular-locale_es-ar.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-cookies/angular-cookies.js', 
@@ -43,7 +49,8 @@ module.exports = {
 				'public/lib/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js',
 				'public/lib/adminLTE/dist/js/app.js',	
 				'public/lib/moment/moment.js',
-				'public/lib/angular-moment/angular-moment.min.js'	
+				'public/lib/angular-moment/angular-moment.min.js',
+				//'http://d3js.org/d3.v3.min.js',
 				
 			]
 		},

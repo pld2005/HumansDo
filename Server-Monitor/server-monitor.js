@@ -227,6 +227,7 @@ net.createServer(function (socket) {
 
 			        //verificar desde cuando tiene conteo
 			        var tiemposinconteo;
+			        console.log('timeoff ' + trama.timeoffset);
 			        var ultimoconteo = moment(new Date(trama.lastcount)).add(trama.timeoffset, 'hours');
 			       
 			        

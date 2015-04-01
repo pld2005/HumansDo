@@ -4,6 +4,9 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 	function($scope, Authentication, Menus) {
 		$scope.authentication = Authentication;
 		
+
+		
+
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');
 

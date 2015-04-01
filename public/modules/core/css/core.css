@@ -187,3 +187,8 @@
   min-height: 100px;
 }
 
+path {
+  stroke: #000;
+  stroke-width: 1.5;
+  cursor: pointer;
+}

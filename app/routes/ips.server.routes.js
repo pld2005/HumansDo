@@ -6,11 +6,21 @@ module.exports = function(app) {
 
 	// Ips Routes
 	app.route('/ips')
-		.get(ips.list, ips.cantreg)
+		.get(users.requiresLogin, ips.list, ips.cantreg)
 		.post(users.requiresLogin, ips.create);
 
-app.route('/cantreg')
-		.get(ips.cantreg);
+	app.route('/cantreg')
+		.get(users.requiresLogin, ips.cantreg);
+	app.route('/wheel')
+		.get(users.requiresLogin, ips.wheel);
+	app.route('/comboGroup')
+		.get(users.requiresLogin, ips.combogroup);
+	app.route('/comboSite')
+		.get(users.requiresLogin, ips.combosite);
+	app.route('/comboZone')
+		.get(users.requiresLogin, ips.combozone);
+	app.route('/ips/:param1/:param2/:param3')
+    	.get(ips.listWithParams);
 
 	app.route('/ips/:ipId')
 		.get(ips.read)

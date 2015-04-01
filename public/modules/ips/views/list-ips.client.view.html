@@ -1,18 +1,70 @@
 <section data-ng-controller="IpsController" data-ng-init="find()">
     <div class="page-header">
-    <div class="row">
-        <div class="col-xs-6"><input ng-model="searchKeyword" class="form-control" placeholder="buscar ..." type="text"/></div>
-                <div class="col-xs-2">
-                    <a class="btn btn-block btn-danger btn-sm" ng-click="searchKeyword = {status:'error'}">{{countEvent('error')}} Services Down</a>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12">    
+                        <div class="col-md-4" data-ng-init="cbogroup = getGroup()">
+                            <label>Group:</label>
+                            <select ng-options="g for g in cbogroup" ng-model="selectedCbogroup" ng-change="updatesites()" class="form-control glowing-border"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Site:</label>
+                            <select ng-options="s for s in cbosite" ng-model="selectedCbosite" ng-change="updatezones()" class="form-control glowing-border"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Zone:</label>
+                            <select ng-options="z for z in cbozone" ng-model="selectedCbozone" ng-change="findWithParams()" class="form-control glowing-border"></select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-2">
-                    <a class="btn btn-block btn-warning btn-sm" ng-click="searchKeyword = {status:'warning'}">{{countEvent('warning')}} Services Warning</a>
+                <div class="row"><div class="col-md-12">&nbsp;</div></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                            <input ng-model="searchKeyword" class="form-control" placeholder="search..." type="text"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-flat" type="button" ng-click="searchKeyword = null">x</button>
+                            </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="btn btn-danger btn-sm " ng-click="searchKeyword = {status:'error'}">{{countEvent('error')}} Offline</a>
+                            <a class="btn btn-warning btn-sm " ng-click="searchKeyword = {status:'warning'}">{{countEvent('warning')}} Warning</a>
+                            <a class="btn btn-success btn-sm " ng-click="searchKeyword = {status:'success'}">{{countEvent('success')}} Online</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-2">
-                    <a class="btn btn-block btn-success btn-sm" ng-click="searchKeyword = {status:'success'}">{{countEvent('success')}} Services Online</a>
+            </div>
+            <div class="col-md-3">
+                <div class="yellow-background">
+                    <div class="pull-right">
+                        <nvd3-pie-chart
+                            data="resumenStatus"
+                            id="pie1"
+                            width="250"
+                            height="150"
+                            x="xFunction()"
+                            y="yFunction()"
+                            tooltips="true"
+                            showlegend="false"
+                            showLabels="true"
+                            labelType="percent"
+                            margin="{left:0,top:0,bottom:0,right:0}"
+                            color="colorFunction()">
+                                <svg height="250"></svg>
+                        </nvd3-pie-chart>
+                    </div>  
                 </div>
-    </div>
+            </div>
+            
+            
+        </div>
         
+        
+        
+
     
     </div>
     <div class="list-group">
